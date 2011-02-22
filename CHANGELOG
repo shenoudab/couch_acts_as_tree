@@ -1,0 +1,4 @@
+*Support for CouchrestModel
+
+*Proxy object #children added with methods: <<, delete
+

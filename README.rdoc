@@ -1,0 +1,47 @@
+= couch-acts_as_tree
+
+This is an implementation of a tree structure for CouchrestModel.
+
+== Installation
+
+Install as gem
+
+  gem install couch_acts_as_tree
+
+== Usage
+
+Enable the tree functionality by declaring acts_as_tree on your model
+
+  class Category < CouchRest::Model::Base
+    include Couch::Acts::Tree
+
+    property :name
+
+    acts_as_tree
+  end
+
+The method accepts :parent_id_field, :path_field, :depth_field, :order as a hash.
+
+  :parent_id_field, :path_field, :depth_field => override the default field names
+  :order => control the order (format ['value', 'asc'] or [['field_1', 'asc'], ['field_2', 'desc']])
+
+Check the test_tree.rb for examples.
+
+== About bugs
+
+Use it. If you find any bugs, contact me (if possible with a test case) or patch it yourself (see next section).
+
+== Note on Patches/Pull Requests
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+== Copyright
+
+Copyright (c) 2011 mobiThought. See LICENSE for details.
+
