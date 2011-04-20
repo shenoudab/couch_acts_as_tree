@@ -1,16 +1,16 @@
 require 'helper'
 require 'set'
 
-class TestMongoidActsAsTree < Test::Unit::TestCase
+class TestCouchActsAsTree < Test::Unit::TestCase
   context "Ordered tree" do
     setup do
-      @root_1     = OrderedCategory.create(:name => "Root 1", :value => 2)
-      @child_1    = OrderedCategory.create(:name => "Child 1", :value => 1)
-      @child_2    = OrderedCategory.create(:name => "Child 2", :value => 9)
-      @child_2_1  = OrderedCategory.create(:name => "Child 2.1", :value => 2)
+      @root_1     = OrderedCategory.new(:name => "Root 1", :value => 2)
+      @child_1    = OrderedCategory.new(:name => "Child 1", :value => 1)
+      @child_2    = OrderedCategory.new(:name => "Child 2", :value => 9)
+      @child_2_1  = OrderedCategory.new(:name => "Child 2.1", :value => 2)
 
-      @child_3    = OrderedCategory.create(:name => "Child 3", :value => 5)
-      @root_2     = OrderedCategory.create(:name => "Root 2", :value => 1)
+      @child_3    = OrderedCategory.new(:name => "Child 3", :value => 5)
+      @root_2     = OrderedCategory.new(:name => "Root 2", :value => 1)
 
       @root_1.children << @child_1
       @root_1.children << @child_2
@@ -32,4 +32,3 @@ class TestMongoidActsAsTree < Test::Unit::TestCase
     end
   end
 end
-

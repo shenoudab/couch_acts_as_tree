@@ -1,13 +1,13 @@
-require "mongoid"
-require "mongoid_acts_as_tree"
+require 'couchrest_model'
+require 'couch_acts_as_tree'
 
-class OrderedCategory
-  include Mongoid::Document
-  include Mongoid::Acts::Tree
+class OrderedCategory < CouchRest::Model::Base
+  include Couch::Acts::Tree
+  
+  use_database TEST_SERVER.default_database
 
-  field :name, :type => String
-  field :value, :type => Integer
+  property :name
+  property :value, Integer
 
   acts_as_tree :order => [['value', 'asc']]
 end
-

@@ -21,8 +21,8 @@ module Couch
           class_inheritable_reader :acts_as_tree_options
 
           include InstanceMethods
-          include Fields
-          extend Fields
+          include Properties
+          extend Properties
           extend ClassMethods
 
           property parent_id_field
@@ -252,8 +252,8 @@ module Couch
         end
 
       end
-
-      module Fields
+      
+      module Properties
         def parent_id_field
           acts_as_tree_options[:parent_id_field]
         end

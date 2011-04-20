@@ -3,31 +3,38 @@ require 'set'
 
 $verbose = false
 
-class TestMongoidActsAsTree < Test::Unit::TestCase
+class TestCouchActsAsTree < Test::Unit::TestCase
   context "Tree" do
     setup do
-      @root_1     = Category.create(:name => "Root 1")
-      @child_1    = Category.create(:name => "Child 1")
-      @child_2    = Category.create(:name => "Child 2")
-      @child_2_1  = Category.create(:name => "Child 2.1")
-
-      @child_3    = Category.create(:name => "Child 3")
-      @root_2     = Category.create(:name => "Root 2")
-
+      @root_1     = Category.new(:name => "Root 1")
+      @root_1.save
+      @child_1    = Category.new(:name => "Child 1")
+      @child_1.save
+      @child_2    = Category.new(:name => "Child 2")
+      @child_2.save
+      @child_2_1  = Category.new(:name => "Child 2.1")
+      @child_2_1.save
+      @child_3    = Category.new(:name => "Child 3")
+      @child_3.save
+      @root_2     = Category.new(:name => "Root 2")
+      @root_2.save
+      
       @root_1.children << @child_1
       @root_1.children << @child_2
       @root_1.children << @child_3
-
+      @root_1.save
+      
       @child_2.children << @child_2_1
+      @child_2.save
     end
-
+    
     should "add child via create or build" do
       @root_1.children.build :name => "Child 2.2"
-      assert Category.where(:name => "Child 2.2").first.parent == @root_1
+      assert Category.by_name(:key => "Child 2.2").first.parent == @root_1
     end
 
    	should "add child via <<" do
-   		child = Category.create(:name => "Child 2.2")
+   		child = Category.new(:name => "Child 2.2")
    		@root_1.children << child
 			assert child.parent == @root_1
 		end
@@ -45,7 +52,7 @@ class TestMongoidActsAsTree < Test::Unit::TestCase
 		end
 
 		should "replace children list" do
-			new_children_list = [Category.create(:name => "test 1"), Category.create(:name => "test 2")]
+			new_children_list = [Category.new(:name => "test 1"), Category.new(:name => "test 2")]
 
 			@root_1.children = new_children_list
 			assert_equal(new_children_list, @root_1.children)
@@ -59,8 +66,8 @@ class TestMongoidActsAsTree < Test::Unit::TestCase
     end
 
 		should "assign parent_id" do
-			child  = Category.create :name => 'child'
-			parent = Category.create :name => 'parent'
+			child  = Category.new :name => 'child'
+			parent = Category.new :name => 'parent'
 
 			child.parent_id = parent.id
 			child.save
@@ -217,7 +224,7 @@ class TestMongoidActsAsTree < Test::Unit::TestCase
 
       should "destroy descendants when destroyed" do
         @child_2.destroy
-        assert_nil Category.where(:id => @child_2_1._id).first
+        assert_nil Category.find(@child_2_1._id).first
       end
     end
 
@@ -234,4 +241,3 @@ class TestMongoidActsAsTree < Test::Unit::TestCase
     end
   end
 end
-

@@ -1,6 +1,6 @@
-= couch-acts_as_tree
+= couch_acts_as_tree
 
-This is an implementation of a tree structure for CouchrestModel.
+This is an implementation of a tree structure for CouchrestModel (Not Ready for Use)
 
 == Installation
 
